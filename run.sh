@@ -8,7 +8,7 @@
 #   -r      [kõnetempo, double, 0.01-2.76] 
 
 
-#bin/synthts_et -lex dct/et.dct -lexd dct/et3.dct -o tnu12k-s.wav -f in.txt -m htsvoices/eki_et_tnu12k.htsvoice -r 1.1 -s 12
+bin/synthts_et -lex dct/et.dct -lexd dct/et3.dct -o tnu12k-s.wav -f in.txt -m htsvoices/eki_et_tnu12k.htsvoice -r 1.1 -s 12
 
 bin/synthts_et -lex dct/et.dct -lexd dct/et3.dct -o t_tnu.wav -f in.txt -m htsvoices/eki_et_tnu.htsvoice -r 1.1
 bin/synthts_et -lex dct/et.dct -lexd dct/et3.dct -o t_eva.wav -f in.txt -m htsvoices/eki_et_eva.htsvoice -r 1.1
