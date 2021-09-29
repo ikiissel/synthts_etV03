@@ -17,6 +17,6 @@ bin/synthts_et -lex dct/et.dct -lexd dct/et3.dct -o t_tmb.wav -f in.txt -m htsvo
 bin/synthts_et -lex dct/et.dct -lexd dct/et3.dct -o t_khn.wav -f in.txt -m htsvoices/eki_et_khn.htsvoice -r 1.1
 bin/synthts_et -lex dct/et.dct -lexd dct/et3.dct -o t_lvk.wav -f in.txt -m htsvoices/eki_et_lvk.htsvoice -r 1.1
 
-#bin/synthts_et -lex dct/et.dct -lexd dct/et3.dct -o t_lsi.wav -f in.txt -m htsvoices/eki_et_lsi.htsvoice -r 1.1
+bin/synthts_et -lex dct/et.dct -lexd dct/et3.dct -o t_lsi.wav -f in.txt -m htsvoices/eki_et_lsi.htsvoice -r 1.1
 #bin/synthts_et -lex dct/et.dct -lexd dct/et3.dct -o t_mls.wav -f in.txt -m htsvoices/eki_et_mls.htsvoice -r 1.1
 
