@@ -76,6 +76,7 @@
 		-lexd           [ühestaja sõnastik] 
 		-m 		[hääle nimi, vt kataloogi htsvoices/]
 		-r              [kõnetempo, double, 0.01-2.76]		
+                -s              [kvantimissagedus kHz-des]
 	
         Näide:
 
