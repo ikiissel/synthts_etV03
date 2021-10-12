@@ -8,9 +8,7 @@
 #include "label.h"
 
 
-
 CFSWString DealWithText(CFSWString text) {
-	/* Proovin kogu sõnniku minema loopida */
 	CFSWString res;
 	text.Trim();
 	text.Replace(L"\n\n", L"\n", 1);
@@ -305,20 +303,34 @@ CFSClassArray<TWord> TUtterance::DoTokens(CFSClassArray<TWord> TWA) {
 	CFSClassArray<TTypeRecord> TRecA;
 	CFSArray<CFSWString> PrevNumber;
 
+        
+        
         INTPTR c = TWA.GetSize();
-        INTPTR l = TWA[0].Token.GetLength();
+        //INTPTR l = TWA[0].Token.GetLength();
+        INTPTR l = TWA[0].TWMInfo.m_szRoot.GetLength();
+
+        for (INTPTR i = 0; i < TWA.GetSize(); i++) {
+          //P.prnn(L"Tokeni Token: " + TWA[i].Token);
+          //P.prnn(L"Tokeni Root: " + TWA[i].TWMInfo.m_szRoot);
+        }
+        
+
         if (c==1 && l==1) {
             CFSWString x;
             x = replace_fchar (TWA[0].Token);
             if (x != 'n') TWA[0].Token = x;
             x = replace_schar(TWA[0].Token);
             TWA[0].Token = x;
+            TWA[0].TWMInfo.m_szRoot = x;
+            
         }
 
+        
+        
 
 
 	for (INTPTR i = 0; i < TWA.GetSize(); i++) {
-
+            //P.prnn(TWA[i].Token);
 		CFSWString Token = TWA[i].Token;
 		// Komad ära ja fraasibreigid paika.
 		if ((is_comma(Token.GetAt(Token.GetLength() - 1)) ||
@@ -696,7 +708,14 @@ CFSClassArray<TWord> TUtterance::DoTokens(CFSClassArray<TWord> TWA) {
 				}
 		}
 	}
-	return Result;
+
+
+
+        for (INTPTR i = 0; i < Result.GetSize(); i++) {
+            //P.prnn(L"Tokeni lõpp: " + Result[i].Token);
+            //P.prnn(L"Tokeni Root: " + Result[i].TWMInfo.m_szRoot);            
+        }
+        return Result;
 }
 
 
@@ -767,7 +786,7 @@ CFSArray<CFSWString> do_all(CFSWString utt, bool print_label, bool print_utt) {
 	TUtterance TU;
 
 	explode(utt, L" ", TempA);
-
+        
 	for (INTPTR i = 0; i < TempA.GetSize(); i++) {
 		PTW.AddItem(TempA[i]);
 	}
@@ -780,9 +799,11 @@ CFSArray<CFSWString> do_all(CFSWString utt, bool print_label, bool print_utt) {
 		TW.TWMInfo = MRs[i].m_MorphInfo[0];
 		TW.AddEndings();
 		TU.TWA.AddItem(TW);
-                /*for (int j = 0; j < MRs[i].m_MorphInfo.GetSize(); j ++) {
-                    P.prnn(MRs[i].m_MorphInfo[j].m_szRoot +MRs[i].m_MorphInfo[j].m_szEnding);
-                }*/
+                //P.prnn(L"ana token: " + TW.Token);
+                //P.prnn(L"ana root: " + TW.TWMInfo.m_szRoot);
+                for (int j = 0; j < MRs[i].m_MorphInfo.GetSize(); j ++) {
+                    //P.prnn(L"Peale analüüsi: " + MRs[i].m_MorphInfo[j].m_szRoot);                    
+                }
                 
                 
 	}
@@ -797,7 +818,7 @@ CFSArray<CFSWString> do_all(CFSWString utt, bool print_label, bool print_utt) {
         
         for (INTPTR i = 0; i < TU.TPA.GetSize(); i++) {
 		res.AddItem(TU.TPA[i].Phone);
-		//PPP.prnn(TU.TPA[i].Phone);
+		//P.prnn(TU.TPA[i].Phone);
                 
                 
 
