@@ -7,7 +7,6 @@
 #include "syls.h"
 #include "label.h"
 
-
 CFSWString DealWithText(CFSWString text) {
 	CFSWString res;
 	text.Trim();
@@ -306,15 +305,7 @@ CFSClassArray<TWord> TUtterance::DoTokens(CFSClassArray<TWord> TWA) {
         
         
         INTPTR c = TWA.GetSize();
-        //INTPTR l = TWA[0].Token.GetLength();
         INTPTR l = TWA[0].TWMInfo.m_szRoot.GetLength();
-
-        for (INTPTR i = 0; i < TWA.GetSize(); i++) {
-          //P.prnn(L"Tokeni Token: " + TWA[i].Token);
-          //P.prnn(L"Tokeni Root: " + TWA[i].TWMInfo.m_szRoot);
-        }
-        
-
         if (c==1 && l==1) {
             CFSWString x;
             x = replace_fchar (TWA[0].Token);
@@ -322,12 +313,7 @@ CFSClassArray<TWord> TUtterance::DoTokens(CFSClassArray<TWord> TWA) {
             x = replace_schar(TWA[0].Token);
             TWA[0].Token = x;
             TWA[0].TWMInfo.m_szRoot = x;
-            
         }
-
-        
-        
-
 
 	for (INTPTR i = 0; i < TWA.GetSize(); i++) {
             //P.prnn(TWA[i].Token);
@@ -710,13 +696,49 @@ CFSClassArray<TWord> TUtterance::DoTokens(CFSClassArray<TWord> TWA) {
 	}
 
 
-
         for (INTPTR i = 0; i < Result.GetSize(); i++) {
-            //P.prnn(L"Tokeni lõpp: " + Result[i].Token);
-            //P.prnn(L"Tokeni Root: " + Result[i].TWMInfo.m_szRoot);            
+            if (Result[i].TWMInfo.m_szRoot.GetLength() == 1) {
+                CFSWString s = Result[i].TWMInfo.m_szRoot;
+                s = s.ToLower();
+                s = replace_fchar (s);
+                if (s == L"n") {
+                    s = replace_schar(Result[i].TWMInfo.m_szRoot);
+                }
+                if (s == L"n") s = L"tundmatumärk";
+                //Need 2 asendust Tuleb ümber teha
+                Result[i].TWMInfo.m_szRoot = s;
+            }
         }
         return Result;
 }
+
+
+/*
+ 
+         INTPTR c = TWA.GetSize();
+        //INTPTR l = TWA[0].Token.GetLength();
+        INTPTR l = TWA[0].TWMInfo.m_szRoot.GetLength();
+
+        for (INTPTR i = 0; i < TWA.GetSize(); i++) {
+          P.prnn(L"Tokeni (a) Token: " + TWA[i].Token);
+          P.prnn(L"Tokeni (a) Root: " + TWA[i].TWMInfo.m_szRoot);
+          P.prnn();
+        }
+        
+
+        if (c==1 && l==1) {
+            CFSWString x;
+            x = replace_fchar (TWA[0].Token);
+            if (x != 'n') TWA[0].Token = x;
+            x = replace_schar(TWA[0].Token);
+            TWA[0].Token = x;
+            TWA[0].TWMInfo.m_szRoot = x;
+            
+        }
+
+ 
+ */
+
 
 
 void TUtterance::DoPhrases(CFSClassArray<TWord>& TWA) {

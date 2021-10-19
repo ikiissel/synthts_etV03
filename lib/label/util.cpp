@@ -626,7 +626,7 @@ CFSWString replace_schar (CFSWString c) {
     if (c == L"δ") return L"delta";
 	
     
-    return L"tundmatumärk";
+    return L"n";
 }
 
 
