@@ -459,6 +459,9 @@ void HTS_Engine_save_generated_parameter(HTS_Engine * engine, size_t stream_inde
 /* HTS_Engine_save_generated_speech: save generated speech */
 void HTS_Engine_save_generated_speech(HTS_Engine * engine, FILE * fp);
 
+/*In HTS_Engine_paches save with pause*/
+void HTS_Engine_save_generated_speech_with_pause(HTS_Engine * engine, FILE * fp, int pause_dur);
+
 /* HTS_Engine_save_riff: save RIFF format file */
 void HTS_Engine_save_riff(HTS_Engine * engine, FILE * fp);
 

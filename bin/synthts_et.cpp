@@ -167,7 +167,7 @@ int main(int argc, char* argv[]) {
     float th = 0.5;
     float gvw1 = 1.0;
     float gvw2 = 1.2;
-
+    INTPTR pause_dur = 24000;
     FSCInit();
     fn_voices = (char **) malloc(argc * sizeof (char *));
     
@@ -229,6 +229,11 @@ int main(int argc, char* argv[]) {
                 speed = atof(argv[i + 1]);
             }
         }
+        if (CFSAString("-pause_dur") == argv[i]) {
+            if (i + 1 < argc) {
+                pause_dur = atof(argv[i + 1]);
+            }
+        }        
         if (CFSAString("-ht") == argv[i]) {
             if (i + 1 < argc) {
                 ht = atof(argv[i + 1]);
@@ -329,6 +334,7 @@ int main(int argc, char* argv[]) {
     outfp = fopen(output_fname, "wb");
     if (write_durlabel) durfp = fopen(dur_fname, "w");
     if (!write_raw) HTS_Engine_write_header(&engine, outfp, 1);
+    INTPTR size = res.GetSize();
     for (INTPTR i = 0; i < res.GetSize(); i++) {
 
         CFSArray<CFSWString> label = do_all(res[i], print_label, print_utt);
@@ -349,8 +355,16 @@ int main(int argc, char* argv[]) {
 
         clean_char_vector(vc);
         data_size += HTS_Engine_engine_speech_size(&engine);
+        
+        if (i < (size-1)) { // et wavi lõppu ei tuleks pause_dur vaikus
+            data_size += pause_dur;
+            HTS_Engine_save_generated_speech_with_pause(&engine, outfp, pause_dur);
+        } else {
+            HTS_Engine_save_generated_speech(&engine, outfp);
+        }        
+        
         if (write_durlabel) HTS_Engine_save_durlabel(&engine, durfp);
-        HTS_Engine_save_generated_speech(&engine, outfp);
+        //HTS_Engine_save_generated_speech(&engine, outfp);
 
         HTS_Engine_refresh(&engine);
 
