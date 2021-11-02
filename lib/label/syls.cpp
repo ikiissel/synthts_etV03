@@ -333,10 +333,10 @@ void AddStress(CFSClassArray<TSyl> &sv, INTPTR wp) {
 
 
             // eksperimendi korras topeldame pikeneva, aga järgmisesse silpi sattunud laa-t:a -> laat-t:ta
-            //  if (i > 0 && sv[i].Syl.GetAt(1) == L':') {
-            //      CFSWString c = sv[i].Syl.GetAt(0);
-            //      sv[i - 1].Syl += c;
-            //  }
+              if (i > 0 && sv[i].Syl.GetAt(1) == L':') {
+                  CFSWString c = sv[i].Syl.GetAt(0);
+                  sv[i - 1].Syl += c;
+              }
 
             if (sv[i].Syl.Find('?') > -1) {
                 sv[i].Stress = main_stress;
