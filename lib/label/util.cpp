@@ -624,6 +624,16 @@ CFSWString replace_schar (CFSWString c) {
     if (c == L"β") return L"beta";
     if (c == L"γ") return L"gamma";
     if (c == L"δ") return L"delta";
+    if (c == L"1") return L"üks";
+    if (c == L"2") return L"kaks";
+    if (c == L"3") return L"kolm";
+    if (c == L"4") return L"neli";
+    if (c == L"5") return L"viis";
+    if (c == L"6") return L"kuus";
+    if (c == L"7") return L"seitse";
+    if (c == L"8") return L"kaheksa";
+    if (c == L"9") return L"üheksa";
+    if (c == L"0") return L"null";
 	
     
     return L"n";
