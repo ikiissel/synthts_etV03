@@ -158,15 +158,16 @@ int main(int argc, char* argv[]) {
 
     CFSAString LexFileName, LexDFileName;
     HTS_Engine engine;
-    double speed = 1.1;
+    double tempo = 1.1;
+    
     size_t fr = 48000;
     size_t fp = 240;
-    float alpha = 0.55;
-    float beta = 0.0;
-    float ht = 2.0;
-    float th = 0.5;
-    float gvw1 = 1.0;
-    float gvw2 = 1.2;
+    float alpha = 0.55; //0.55
+    float beta = 0.0; //0.0
+    float ht = 2.0; //2.0
+    float th = 0.5; //0.5
+    float gvw1 = 1.0; //1.0
+    float gvw2 = 1.2; // 1.2
     INTPTR pause_dur = 24000;
     FSCInit();
     fn_voices = (char **) malloc(argc * sizeof (char *));
@@ -226,7 +227,7 @@ int main(int argc, char* argv[]) {
         }
         if (CFSAString("-r") == argv[i]) {
             if (i + 1 < argc) {
-                speed = atof(argv[i + 1]);
+                tempo = atof(argv[i + 1]);
             }
         }
         if (CFSAString("-pause_dur") == argv[i]) {
@@ -297,7 +298,7 @@ int main(int argc, char* argv[]) {
     HTS_Engine_set_fperiod(&engine, (size_t) fp);
     HTS_Engine_set_alpha(&engine, alpha);
     HTS_Engine_set_beta(&engine, beta);
-    HTS_Engine_set_speed(&engine, speed);
+    HTS_Engine_set_speed(&engine, tempo);
     HTS_Engine_add_half_tone(&engine, ht);
     HTS_Engine_set_msd_threshold(&engine, 1, th);
     /*
@@ -325,6 +326,11 @@ int main(int argc, char* argv[]) {
 	printf("2.0- %f\n", x);
   */  
     
+
+    
+    //double speed_single_syl = speed / 2;
+
+
     
     
     text = DealWithText(text);
@@ -346,7 +352,18 @@ int main(int argc, char* argv[]) {
         fill_char_vector(v, vc);
 
         size_t n_lines = vc.size();
-		
+        
+        
+        /* Eksperiment, et kui lausungis on foneeme vähem kui 7, siis
+         * tõmbab tempo poole peale */
+        if (n_lines < 7) {
+          HTS_Engine_set_speed(&engine, tempo/2); 
+        } else {
+          HTS_Engine_set_speed(&engine, tempo);  
+        } 
+        /************************************************************/
+        
+        
         if (HTS_Engine_synthesize_from_strings(&engine, &vc[0], n_lines) != TRUE) {
             fprintf(stderr, "Viga: süntees ebaonnestus.\n");            
             HTS_Engine_clear(&engine);
