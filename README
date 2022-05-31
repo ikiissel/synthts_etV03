@@ -52,7 +52,7 @@
 		Peale lahtipakkimist
 
 
-	cd synthts_etQ007-main
+	cd synthts_etV03-main
 	autoreconf -vif
 	./configure
 	make
