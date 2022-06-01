@@ -155,6 +155,7 @@ int main(int argc, char* argv[]) {
     bool print_utt = false;
     bool write_raw = false;
     bool write_durlabel = false;
+    bool lyhendid = false;
 
     CFSAString LexFileName, LexDFileName;
     HTS_Engine engine;
@@ -255,7 +256,11 @@ int main(int argc, char* argv[]) {
         }
         if (CFSAString("-utt") == argv[i]) {
             print_utt = true;
+        }
+        if (CFSAString("-lyh") == argv[i]) {
+            lyhendid = true;
         }        
+        
         if (CFSAString("-raw") == argv[i]) {
             write_raw = true;
         }
@@ -343,7 +348,7 @@ int main(int argc, char* argv[]) {
     INTPTR size = res.GetSize();
     for (INTPTR i = 0; i < res.GetSize(); i++) {
 
-        CFSArray<CFSWString> label = do_all(res[i], print_label, print_utt);
+        CFSArray<CFSWString> label = do_all(res[i], print_label, print_utt, lyhendid);
 
         std::vector<std::string> v;
         v = to_vector(label);

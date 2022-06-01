@@ -7,6 +7,10 @@
 #include "syls.h"
 #include "label.h"
 
+bool lyh;
+
+
+
 CFSWString DealWithText(CFSWString text) {
 	CFSWString res;
 	text.Trim();
@@ -501,6 +505,10 @@ CFSClassArray<TWord> TUtterance::DoTokens(CFSClassArray<TWord> TWA) {
 
 
 			Temp.Cleanup();
+                        if (lyh) {
+                          is_abbreviation2(TWA[i].Token, Temp);  
+                        }
+                        else
 			is_abbreviation(TWA[i].Token, Temp);
 
 			// 1 ERIJUHT
@@ -802,11 +810,11 @@ void TSyl::DoPhones(TSyl &T) {
 
 
 
-CFSArray<CFSWString> do_all(CFSWString utt, bool print_label, bool print_utt) {
+CFSArray<CFSWString> do_all(CFSWString utt, bool print_label, bool print_utt, bool lyhendid) {
 	CFSArray<CFSWString> res, TempA;
 	CFSArray<CPTWord> PTW;
 	TUtterance TU;
-
+        lyh = lyhendid;
 	explode(utt, L" ", TempA);
         
 	for (INTPTR i = 0; i < TempA.GetSize(); i++) {

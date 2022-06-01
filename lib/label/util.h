@@ -81,6 +81,7 @@ CFSWString make_digit_string(CFSWString c);
 INTPTR ctype(CFSWString c);
 
 INTPTR is_abbreviation(CFSWString s, CFSArray<CFSWString> &a);
+INTPTR is_abbreviation2(CFSWString s, CFSArray<CFSWString> &a);
 CFSWString replace_fchar(CFSWString c);
 CFSWString replace_schar(CFSWString c);
 INTPTR explode(CFSWString s, CFSWString cSplitter, CFSArray<CFSWString> &Array);
