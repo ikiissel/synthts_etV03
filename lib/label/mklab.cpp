@@ -808,6 +808,60 @@ void TSyl::DoPhones(TSyl &T) {
 
 }
 
+CFSWString PrepareTokens(CFSWString s) {
+    CFSWString res;
+    INTPTR first = 0;
+    INTPTR last = s.GetLength() - 1;
+
+    for (INTPTR i = 0; i < s.GetLength(); i++) {
+        CFSWString c = s.GetAt(i);
+        if (c == L"(" || c == L"[" || c == L"{") {
+            if (i == first) {
+                res += L"sulgudes, ";
+            } else
+                if (i == last) {
+                res += L" alustav sulg";
+            } else
+                res += L", sulgudes, ";
+        } else
+            if (c == L")" || c == L"]" || c == L"}") {
+            if (i == first) res += L"lõpetav sulg, ";
+            else
+                if (i == last) {
+            } else
+                res += L", ";
+
+        } else
+            res += c;
+
+    }
+    s = res;
+    s.Replace(L"°C", L" kraadi ", 1);
+    s.Replace(L" – ", L", ", 1);
+    s.Replace(L" –, L", L", ", 1);
+    s.Replace(L"–", L" ", 1);
+    s.Replace(L"\"", L" ", 1);
+    s.Replace(L"„", L" ", 1);
+    s.Replace(L"”", L" ", 1);
+    s.Replace(L"„", L" ", 1);
+    s.Replace(L"-", L" ", 1);
+    s.Replace(L":", L", ", 1);
+    s.Replace(L"…", L" ", 1);
+
+    s.Replace(L"...", L". ", 1);
+    s.Replace(L" ,", L", ", 1);
+    s.Replace(L" .", L". ", 1);
+    s.Replace(L" ?", L"? ", 1);
+    s.Replace(L" !", L"! ", 1);
+    s.Replace(L",,", L",", 1);
+
+    s.Replace(L"  ", L" ", 1);
+    s.Replace(L"  ", L" ", 1);
+    s.Replace(L"  ", L" ", 1);
+    
+    return s;
+    
+}
 
 
 CFSArray<CFSWString> do_all(CFSWString utt, bool print_label, bool print_utt, bool lyhendid) {
@@ -815,6 +869,12 @@ CFSArray<CFSWString> do_all(CFSWString utt, bool print_label, bool print_utt, bo
 	CFSArray<CPTWord> PTW;
 	TUtterance TU;
         lyh = lyhendid;
+        
+        if (!lyh) {
+        if (utt.GetLength() > 1) 
+               utt = PrepareTokens(utt);
+
+        }
 	explode(utt, L" ", TempA);
         
 	for (INTPTR i = 0; i < TempA.GetSize(); i++) {
