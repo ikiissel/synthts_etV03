@@ -870,11 +870,11 @@ CFSArray<CFSWString> do_all(CFSWString utt, bool print_label, bool print_utt, bo
 	TUtterance TU;
         lyh = lyhendid;
         
-        if (!lyh) {
+        
         if (utt.GetLength() > 1) 
                utt = PrepareTokens(utt);
 
-        }
+        
 	explode(utt, L" ", TempA);
         
 	for (INTPTR i = 0; i < TempA.GetSize(); i++) {
